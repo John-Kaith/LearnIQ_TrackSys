@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LearnIQ Track is an AI-powered learning game and digital work immersion monitoring system.">
+    <title>LearnIQ Track | Learn smarter. Track better.</title>
+    <style>
+        :root {
+            --navy: #0f172a;
+            --navy-soft: #334155;
+            --accent: #2563eb;
+            --accent-deep: #1d4ed8;
+            --cream: #f8fafc;
+            --surface: rgba(255, 255, 255, .86);
+            --ink: #1e293b;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --shadow: 0 18px 50px rgba(15, 23, 42, .1);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            background:
+                radial-gradient(circle at 85% 0%, rgba(37, 99, 235, .09), transparent 30rem),
+                linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        a { color: inherit; }
+        .shell { max-width: 1180px; margin: 0 auto; padding: 0 28px 70px; }
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 0; gap: 20px;
+        }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand-mark {
+            display: grid; place-items: center; width: 44px; height: 44px;
+            color: var(--accent); background: var(--navy); border-radius: 14px;
+            font-size: 22px; box-shadow: 0 7px 16px rgba(15, 23, 42, .2);
+        }
+        .brand strong { display: block; color: var(--navy); font-size: 1rem; letter-spacing: -.02em; }
+        .brand span { display: block; color: var(--muted); font-size: .73rem; }
+        nav { display: flex; gap: 8px; align-items: center; }
+        nav a {
+            padding: 9px 14px; color: var(--muted); text-decoration: none;
+            font-size: .85rem; font-weight: 700; border-radius: 10px;
+        }
+        nav a:hover { color: var(--navy); background: #fff; }
+        .nav-cta { color: var(--navy); background: #fff; border: 1px solid var(--line); }
+
+        .hero {
+            position: relative; overflow: hidden; display: grid; grid-template-columns: 1.15fr .85fr;
+            gap: 44px; align-items: center; min-height: 450px; padding: 68px 68px 62px;
+            color: #fff; background: var(--navy); border-radius: 28px; box-shadow: var(--shadow);
+        }
+        .hero::after {
+            content: ""; position: absolute; width: 370px; height: 370px; right: -80px; top: -150px;
+            border: 45px solid rgba(37, 99, 235, .14); border-radius: 50%;
+        }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            color: #93c5fd; font-size: .75rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
+        }
+        .eyebrow::before { content: ""; width: 24px; height: 3px; background: var(--accent); border-radius: 8px; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 610px; margin-bottom: 18px; font-size: clamp(2.6rem, 6vw, 4.7rem); line-height: .98; letter-spacing: -.07em; }
+        .hero-copy { max-width: 570px; color: #d7d4e4; font-size: 1.08rem; }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .button {
+            display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+            min-height: 46px; padding: 0 19px; border: 1px solid transparent; border-radius: 12px;
+            color: #fff; background: var(--accent); text-decoration: none; font-weight: 800;
+            transition: transform .2s, box-shadow .2s, background .2s;
+        }
+        .button:hover { transform: translateY(-2px); box-shadow: 0 9px 20px rgba(37, 99, 235, .24); }
+        .button.secondary { color: #fff; border-color: rgba(255, 255, 255, .25); background: rgba(255, 255, 255, .08); }
+        .hero-card {
+            position: relative; z-index: 1; padding: 25px; border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255,255,255,.1); border-radius: 20px; backdrop-filter: blur(8px);
+        }
+        .hero-card h2 { margin-bottom: 20px; font-size: 1.15rem; }
+        .progress-row { display: flex; justify-content: space-between; margin-bottom: 9px; color: #d7d4e4; font-size: .8rem; }
+        .progress { height: 9px; margin-bottom: 22px; overflow: hidden; background: rgba(255,255,255,.14); border-radius: 10px; }
+        .progress span { display: block; width: 72%; height: 100%; background: var(--accent); border-radius: inherit; }
+        .mini-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .mini-stat { padding: 13px; background: rgba(0,0,0,.14); border-radius: 12px; }
+        .mini-stat strong { display: block; color: #fff; font-size: 1.4rem; }
+        .mini-stat span { color: #c5c2d4; font-size: .73rem; }
+
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 22px 0 66px; }
+        .stat { padding: 20px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 26px rgba(57, 44, 75, .06); }
+        .stat strong { display: block; color: var(--navy); font-size: 1.55rem; }
+        .stat span { color: var(--muted); font-size: .78rem; }
+        section { scroll-margin-top: 24px; }
+        .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+        .section-heading h2 { margin-bottom: 4px; color: var(--navy); font-size: 2rem; letter-spacing: -.045em; }
+        .section-heading p { margin: 0; color: var(--muted); }
+        .section-label { color: var(--accent-deep); font-size: .73rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 66px; }
+        .feature {
+            padding: 27px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(57, 44, 75, .05);
+        }
+        .feature-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 18px; color: var(--accent-deep); background: #eff6ff; border-radius: 12px; font-size: 1.2rem; }
+        .feature h3 { margin-bottom: 7px; color: var(--navy); font-size: 1.05rem; }
+        .feature p { margin: 0; color: var(--muted); font-size: .9rem; }
+        .story { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; margin-bottom: 66px; }
+        .panel { padding: 31px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; }
+        .panel h2 { color: var(--navy); font-size: 1.45rem; letter-spacing: -.035em; }
+        .panel p { color: var(--muted); }
+        .objectives { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; }
+        .objectives li { display: flex; gap: 12px; color: var(--muted); font-size: .9rem; }
+        .objectives li::before { content: "✓"; flex: 0 0 22px; display: grid; place-items: center; height: 22px; color: var(--accent-deep); background: #dbeafe; border-radius: 50%; font-weight: 900; }
+        .stack { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+        .tag { padding: 7px 11px; color: var(--navy-soft); background: #f1f5f9; border: 1px solid #dbeafe; border-radius: 8px; font-size: .75rem; font-weight: 800; }
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 66px; }
+        .shot { overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 8px 24px rgba(57, 44, 75, .06); }
+        .shot.featured { grid-column: 1 / -1; }
+        .shot img { display: block; width: 100%; height: auto; }
+        .shot figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 15px 18px; color: var(--navy); font-size: .84rem; font-weight: 800; }
+        .shot figcaption span { color: var(--muted); font-size: .75rem; font-weight: 600; }
+        .documents { margin-bottom: 66px; }
+        .document-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 16px; }
+        .document {
+            display: flex; flex-direction: column; min-height: 210px; padding: 25px;
+            background: var(--surface); border: 1px solid var(--line); border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(57, 44, 75, .05);
+        }
+        .document.primary { color: #fff; background: var(--navy); border-color: var(--navy); }
+        .document-icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 20px; color: var(--accent-deep); background: #dbeafe; border-radius: 11px; font-size: .8rem; font-weight: 900; }
+        .document.primary .document-icon { color: var(--navy); background: #fff; }
+        .document h3 { margin-bottom: 7px; color: var(--navy); font-size: 1.05rem; }
+        .document.primary h3 { color: #fff; }
+        .document p { margin-bottom: 18px; color: var(--muted); font-size: .86rem; }
+        .document.primary p { color: #cbd5e1; }
+        .document-link { margin-top: auto; color: var(--accent-deep); font-size: .82rem; font-weight: 800; text-decoration: none; }
+        .document.primary .document-link { color: #93c5fd; }
+        .closing { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 38px 42px; color: #fff; background: var(--navy); border-radius: 22px; }
+        .closing h2 { margin-bottom: 5px; font-size: 1.7rem; }
+        .closing p { margin: 0; color: #d7d4e4; }
+        footer { padding-top: 28px; color: var(--muted); text-align: center; font-size: .77rem; }
+
+        @media (max-width: 800px) {
+            .hero, .story { grid-template-columns: 1fr; }
+            .hero { padding: 45px 30px; }
+            .hero-card { max-width: 500px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .feature-grid { grid-template-columns: 1fr; }
+            .document-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 560px) {
+            .shell { padding: 0 16px 45px; }
+            .topbar { padding: 15px 0; }
+            nav a:not(.nav-cta) { display: none; }
+            .hero { min-height: auto; padding: 38px 23px; border-radius: 20px; }
+            h1 { font-size: 3.1rem; }
+            .stats, .gallery { grid-template-columns: 1fr; }
+            .shot.featured { grid-column: auto; }
+            .section-heading, .closing { align-items: flex-start; flex-direction: column; }
+            .panel, .closing { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header class="topbar">
+            <a class="brand" href="#">
+                <span class="brand-mark">✦</span>
+                <span><strong>LearnIQ Track</strong><span>Learning, elevated.</span></span>
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#showcase">Showcase</a>
+                <a href="#documents">Documents</a>
+                <a class="nav-cta" href="https://learniqtrack.site" target="_blank" rel="noopener">learniqtrack.site ↗</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <div>
+                    <div class="eyebrow">AI-powered learning ecosystem</div>
+                    <h1 id="hero-title">Learn smarter.<br><span style="color: var(--accent);">Track better.</span></h1>
+                    <p class="hero-copy">A playful learning game and digital work immersion platform that helps students grow, teachers guide, and schools stay connected.</p>
+                    <div class="actions">
+                        <a class="button" href="https://learniqtrack.site" target="_blank" rel="noopener">learniqtrack.site ↗</a>
+                        <a class="button secondary" href="#showcase">See the experience</a>
+                    </div>
+                </div>
+                <aside class="hero-card" aria-label="Platform snapshot">
+                    <h2>One platform, every learner</h2>
+                    <div class="progress-row"><span>Learning progress</span><strong>72%</strong></div>
+                    <div class="progress"><span></span></div>
+                    <div class="mini-stats">
+                        <div class="mini-stat"><strong>AI</strong><span>Generated content</span></div>
+                        <div class="mini-stat"><strong>3</strong><span>Role dashboards</span></div>
+                        <div class="mini-stat"><strong>24/7</strong><span>Progress visibility</span></div>
+                        <div class="mini-stat"><strong>∞</strong><span>Room to grow</span></div>
+                    </div>
+                </aside>
+            </section>
+
+            <div class="stats" aria-label="Project highlights">
+                <div class="stat"><strong>AI-first</strong><span>Quizzes, reviewers, and activities</span></div>
+                <div class="stat"><strong>Game-based</strong><span>Interactive practice that motivates</span></div>
+                <div class="stat"><strong>3 roles</strong><span>Student, teacher, and admin views</span></div>
+                <div class="stat"><strong>Digital</strong><span>Attendance and journal tracking</span></div>
+            </div>
+
+            <section id="about">
+                <div class="section-heading">
+                    <div><div class="section-label">Why LearnIQ Track</div><h2>Built around real learning moments</h2></div>
+                    <p>Less paperwork. More progress.</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature"><div class="feature-icon">✦</div><h3>AI-powered content</h3><p>Generate quizzes, activities, and reviewers that teachers can validate before they reach students.</p></article>
+                    <article class="feature"><div class="feature-icon">◆</div><h3>Learning that feels like play</h3><p>Interactive games, automated scores, and live leaderboards turn practice into a motivating experience.</p></article>
+                    <article class="feature"><div class="feature-icon">◎</div><h3>Immersion, organized</h3><p>Replace paper-based attendance and handwritten journals with a clearer, more connected workflow.</p></article>
+                </div>
+            </section>
+
+            <section class="story" aria-label="Project overview">
+                <article class="panel">
+                    <div class="section-label">The challenge</div>
+                    <h2>Make progress visible</h2>
+                    <p>Traditional study practices can make it difficult to get immediate feedback. Work immersion monitoring often adds another layer of paper-based tasks for students and schools.</p>
+                    <p>LearnIQ Track brings these moments together in one friendly, focused system.</p>
+                </article>
+                <article class="panel">
+                    <div class="section-label">The approach</div>
+                    <h2>Designed to move learning forward</h2>
+                    <ul class="objectives">
+                        <li>Create AI-generated learning materials with teacher oversight.</li>
+                        <li>Give students practice, feedback, and a reason to return.</li>
+                        <li>Digitize time-in/out records and daily journal submissions.</li>
+                        <li>Give each role the dashboard it needs to take action.</li>
+                    </ul>
+                    <div class="stack" aria-label="Technology stack">
+                        <span class="tag">HTML / CSS / JS</span><span class="tag">FastAPI</span><span class="tag">Supabase</span><span class="tag">Gemini AI</span><span class="tag">Vercel</span>
+                    </div>
+                </article>
+            </section>
+
+            <section id="showcase">
+                <div class="section-heading">
+                    <div><div class="section-label">Inside the system</div><h2>A clearer view of every role</h2></div>
+                    <p>Purposeful screens for purposeful work.</p>
+                </div>
+                <div class="gallery">
+                    <figure class="shot featured">
+                        <img src="Screenshot 2026-11-05 163402.png" alt="LearnIQ Track admin dashboard">
+                        <figcaption><span>01</span> Admin command center <span>Review activity and system health</span></figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="Screenshot 2026-11-05 163441.png" alt="LearnIQ Track arcade screen">
+                        <figcaption><span>02</span> Student arcade <span>Play to learn</span></figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="Screenshot 2026-11-05 163510.png" alt="LearnIQ Track teacher overview">
+                        <figcaption><span>03</span> Teacher overview <span>Guide every class</span></figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="documents" class="documents">
+                <div class="section-heading">
+                    <div><div class="section-label">Supporting documents</div><h2>Read the study behind the system</h2></div>
+                    <p>Project context, methods, and findings.</p>
+                </div>
+                <div class="document-grid">
+                    <article class="document primary">
+                        <div class="document-icon">PDF</div>
+                        <h3>LearnIQ Track Capstone Manuscript</h3>
+                        <p>The complete 256-page manuscript covering the project background, design, development, testing, and evaluation.</p>
+                        <a class="document-link" href="LearnIQ-Track-Capstone-Manuscript.pdf" target="_blank" rel="noopener">Open manuscript PDF ↗</a>
+                    </article>
+                    <article class="document">
+                        <div class="document-icon">01</div>
+                        <h3>Study overview</h3>
+                        <p>The study addresses interactive learning, AI-generated materials, digital attendance, journals, and student progress monitoring.</p>
+                        <a class="document-link" href="#about">Read project overview →</a>
+                    </article>
+                    <article class="document">
+                        <div class="document-icon">02</div>
+                        <h3>Methodology & stack</h3>
+                        <p>Developed with Agile methodology using FastAPI, Supabase, Gemini AI, and web technologies.</p>
+                        <a class="document-link" href="#about">View the approach →</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="closing">
+                <div><h2>Ready to see LearnIQ Track in action?</h2><p>Explore the system or browse the project source.</p></div>
+                <div class="actions">
+                    <a class="button" href="https://learniqtrack.site" target="_blank" rel="noopener">learniqtrack.site ↗</a>
+                    <a class="button secondary" href="https://github.com/John-Kaith/LearnIQ_Track" target="_blank" rel="noopener">github repository ↗</a>
+                </div>
+            </section>
+        </main>
+        <footer>LearnIQ Track · An AI-Based Learning Game and Digital Work Immersion Monitoring System</footer>
+    </div>
+</body>
+</html>
